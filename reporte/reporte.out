@@ -1,14 +1,17 @@
 \BOOKMARK [1][-]{section.1}{Introducci\363n.}{}% 1
 \BOOKMARK [1][-]{section.2}{An\341lisis exploratorio.}{}% 2
-\BOOKMARK [1][-]{section.3}{M\351tricas para la clasificaci\363n binaria.}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Accuracy}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{F1-score}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{Selecci\363n de m\351tricas para el problema del spam}{section.3}% 6
-\BOOKMARK [1][-]{section.4}{Modelos de clasificaci\363n.}{}% 7
-\BOOKMARK [2][-]{subsection.4.1}{Regresi\363n log\355stica.}{section.4}% 8
-\BOOKMARK [2][-]{subsection.4.2}{M\341quinas de soporte vectorial.}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.3}{\301rboles de decisi\363n.}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.4}{Random Forest.}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.5}{Modelos con reducci\363n de dimensi\363n y selecci\363n de variables}{section.4}% 12
-\BOOKMARK [1][-]{section.5}{An\341lisis del dataset elron.}{}% 13
-\BOOKMARK [1][-]{section.6}{Conclusiones.}{}% 14
+\BOOKMARK [2][-]{subsection.2.1}{Descripci\363n del conjunto de datos.}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Diccionario de datos}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{M\351tricas para la clasificaci\363n binaria.}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Accuracy}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{F1-score}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{Selecci\363n de m\351tricas para el problema del spam}{section.3}% 8
+\BOOKMARK [1][-]{section.4}{Modelos de clasificaci\363n.}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Regresi\363n log\355stica.}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{M\341quinas de soporte vectorial.}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.3}{\301rboles de decisi\363n.}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.4}{Random Forest.}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.5}{Modelos con reducci\363n de dimensi\363n y selecci\363n de variables}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.6}{Comparativa con otros modelos}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{An\341lisis del dataset elron.}{}% 16
+\BOOKMARK [1][-]{section.6}{Conclusiones.}{}% 17

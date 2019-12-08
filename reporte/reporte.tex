@@ -106,8 +106,36 @@
 \pagebreak
 \section{Introducción.}
 
+Aplicación de modelos de clasificación para obtener un filtro (personalizado) para correos electrónicos spam.
+
 \section{Análisis exploratorio.}
+
 \subsection{Descripción del conjunto de datos.}
+
+El conjunto de datos proviene de una serie de correos electrónicos del personal de la empresa HP. Los correos etiquetados como spam fueron proporcionados por el administrador del servidor de correo de la empresa, mientras que los correos que no están etiquetados como spam corresponden a correos personales y de trabajo de George Forman, es por ello que palabras como \textit{george} o código de área $650$ son indicadores de no spam. La base de datos fue creada por Mark Hopkins, Erik Reeber, George Forman y Jaap Suermondt de Hewlett-Packard Labs.
+
+En total se cuentan 4601 observaciones, de las cuales 1813 fueron etiquetadas como spam, que corresponde al $39.4\%$ del total. Las observaciones están representadas a través de un conjunto de 58 atributos: $57$ variables continuas y una variable nominal de clase. Ninguno de los atributos presenta datos faltantes.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+Spam     & $1813$ & $39.4 \%$ \\ \hline
+Non-Spam & $2788$ & $60.6 \%$ \\ \hline
+\end{tabular}
+\caption{Distribución de clases.}
+\end{table}
+
+\subsection{Diccionario de datos}
+
+Los 58 atributos se pueden agrupar en:
+
+\begin{itemize}
+	\item 48 variables continuas con rango $[0,100]$, de la forma word\_freq\_WORD, que indica el porcentaje de palabras en el correo electrónico que coinciden con WORD, es decir:
+	$$word\_freq\_WORD = 100 \times \dfrac{\#\text{apariones de WORD en el correo}}{\#\text{total de palabras en el correo}}$$
+	\item 6 variables continuas
+\end{itemize}
+
 
 \section{Métricas para la clasificación binaria.}
 
@@ -129,8 +157,10 @@
 
 \subsection{Modelos con reducción de dimensión y selección de variables}
 
-\section{Análisis del dataset elron.}
+\subsection{Comparativa con otros modelos}
+%provenientes de articulos
 
+\section{Análisis del dataset elron.}
 
 \section{Conclusiones.}
 
@@ -142,7 +172,9 @@ Lorrie Faith Cranor and Brian A. LaMacchia. 1998. Spam!. Commun. ACM 41, 8 (Augu
 \bibitem{fe19}
 Emilio Ferrara. 2019. The history of digital spam. Commun. ACM 62, 8 (July 2019), 82-91. DOI: https://doi.org/10.1145/3299768
 
-\end{thebibliography}
+\bibitem{ha01}
+Hastie, T., Tibshirani, R.,, Friedman, J. (2001). The Elements of Statistical Learning. New York, NY, USA: Springer New York Inc.. 
 
+\end{thebibliography}
 
 \end{document}
