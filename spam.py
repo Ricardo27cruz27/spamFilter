@@ -181,12 +181,16 @@ dot_data = tree.export_graphviz(clf, out_file=None, feature_names=df.columns[:-1
                                 rounded=True, special_characters=True) 
 graph = pydotplus.graph_from_dot_data(dot_data)
 graph.write_png(os.getcwd()+"/figuras/arbol.png")
-#graph = graphviz.Source(dot_data) 
 
-#graph
+graph = graphviz.Source(dot_data) 
+
+graph
+
 #############
 #from plotlib.pylab import rcParams
 import matplotlib
+%matplotlib inline 
+
 #rcParams['figure.figsize'] = 20,12
 #tree.plot_tree(clf)
 #fig = matplotlib.pyplot.gcf()
