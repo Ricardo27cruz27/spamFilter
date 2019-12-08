@@ -1,0 +1,120 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=blue,filecolor=cyan,pagecolor=blue]{hyperref} 
+\usepackage[toc,style=altlistgroup,hyperfirst=false]{glossaries}
+\usepackage[utf8]{inputenc} %para poder escribir símbolos no anglosajones 
+\usepackage[spanish, mexico]{babel} %Escribir en español (acentos)
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[usenames]{color}
+\usepackage{float}
+\usepackage{graphicx}  %%para las imagenes
+\usepackage{cite} % para contraer referencias
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage[left=2.5cm,top=2.5cm,right=2.5cm,bottom=2.5cm]{geometry}
+\parindent=5mm
+\graphicspath{{images/}}
+\usepackage{etoolbox}
+\let\bbordermatrix\bordermatrix
+\patchcmd{\bbordermatrix}{8.75}{4.75}{}{}
+\patchcmd{\bbordermatrix}{\left(}{\left[}{}{}
+\patchcmd{\bbordermatrix}{\right)}{\right]}{}{}
+%%%%glosario
+\makeindex
+%\makeglossaries
+%\input{./glosario.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%NOTA IMPORTANTE:
+%%Para relacionar el glosario.tex con este archivo
+%%Es necesario abrir la terminal (Simbolo del sistema en windows)
+%%Ir a la carpeta contenedora y escribir el siguiente comando:
+%%makeindex -s PROYECTO_final.ist -t PROYECTO_final.glg -o PROYECTO_final.gls PROYECTO_final.glo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% inicio del documento
+\begin{document}
+
+\thispagestyle{empty}
+
+%%%%%%% portada
+
+\thispagestyle{empty}
+
+\begin{minipage}[c][0.1\textheight][c]{0.2\textwidth}
+\begin{center}
+    \includegraphics[width=4cm, height=4cm]{cimat}
+\end{center}
+\end{minipage}
+\begin{minipage}[c][0.1\textheight][t]{0.8\textwidth}
+\begin{center}
+    {\hspace{2cm}\scshape Centro de Investigación en Matemáticas}
+    \vspace{-.5cm}
+\end{center}
+\hspace*{1.0cm} \rule[0mm]{0.9\textwidth}{0.8mm}
+\hspace*{1.17cm}   \rule[4mm]{0.9\textwidth}{0.1mm}
+    \vspace{-1cm}
+\begin{center}
+    { \hspace{2cm}\scshape  Unidad Monterrey}
+\end{center}
+\end{minipage}
+
+\begin{minipage}[c][0.6\textheight][t]{0.2\textwidth}
+\begin{center}
+\hskip2pt
+\vrule width2.5pt height10cm
+        \hskip1mm
+        \vrule width1pt height10cm \\ \vspace{2cm}
+        \includegraphics[height=4.5cm]{mty}
+        \end{center}
+\end{minipage}
+\begin{minipage}[c][0.9\textheight][t]{0.65\textwidth}
+  \begin{center}
+
+	
+    \vspace{3.2cm}
+    
+%%%% TITULO EN PORTADA
+
+  \scshape Proyecto No. 1.\\ \normalsize
+  
+  \vspace{2cm}  
+  
+    
+            
+    Métodos multivariados de Análisis de Datos\\
+    \vspace{1cm}   
+    Análisis de nutrientes en pizzas.\\
+    \vspace{1cm}   
+    \vspace{1cm}   
+    Ricardo Cruz Sánchez\\
+    Rolando Corona Jiménez
+    \vspace{.5cm}   
+  \end{center}
+  
+\end{minipage}
+
+%TABLA DE INDICES
+\pagebreak
+\tableofcontents
+
+\cleardoublepage
+%INTRODUCCIÓN
+\pagebreak
+\section{Introducción.}
+
+\input{analisis-exploratorio} 
+\input{metricas-clasificacion} 
+\input{modelos-clasificacion} 
+\input{analisis-elron} 
+
+
+
+\section{Conclusiones.}
+
+
+
+\end{document}

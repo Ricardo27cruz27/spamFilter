@@ -1,0 +1,142 @@
+\pagebreak
+\restoregeometry 
+\section{Modelos de clasificación.}
+
+Para el problema de clasificación, primeramente se implementaron clasificadores basados en análisis discriminante lineal (LDA) y regresión logística multinomial. Para LDA se usó la función \textsf{lda} de MASS y para regresión multinomial, \textsf{multinom}, de nnet. Para la creación de los conjuntos de prueba y entrenamiento, se dividió al azar a la población en dos partes iguales y conforme a dicha división se crearon los conjuntos mencionados. Los errores de clasificación de en ambos casos fueron bajos tanto en el conjunto de prueba como en el de entrenamiento, lo cual sugiere que las clases están bien separadas y la tarea de clasificación se puede efectuar de forma satisfactoria. Sin embargo, con el fin de analizar el problema de forma más detallada, se hizo uso de la función \textsf{train} de caret, para medir la precisión de varios clasificadores usando un esquema de validación cruzada con 5 \textit{folds}.
+
+\subsection{LDA}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrrrrrrr}
+  \hline
+ & A & B & C & D & E & F & G & H & I & J & K & L \\ 
+  \hline
+A &   9 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  B &   0 &  17 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  C &   0 &   0 &  15 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  D &   0 &   0 &   1 &  19 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  E &   0 &   0 &   0 &   0 &  14 &   2 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  F &   0 &   0 &   0 &   0 &   1 &  16 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  G &   0 &   0 &   0 &   0 &   0 &   0 &  12 &   0 &   0 &   0 &   0 &   0 \\ 
+  H &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   8 &   9 &   0 &   0 &   0 \\ 
+  I &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   2 &  14 &   1 &   0 &   0 \\ 
+  J &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  13 &   0 &   0 \\ 
+  K &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  18 &   0 \\ 
+  L &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  18 \\ 
+   \hline
+\end{tabular}
+	\label{tabla:confusionLDAtrain}
+	\caption{Matriz de confusión LDA train}
+\end{table}
+
+error de clasificación:  0.08465608
+ 
+ \restoregeometry 
+ \begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrrrrrrr}
+  \hline
+ & A & B & C & D & E & F & G & H & I & J & K & L \\ 
+  \hline
+A &  21 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  B &   0 &  14 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  C &   0 &   0 &  15 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  D &   0 &   0 &   1 &  12 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  E &   0 &   0 &   0 &   0 &  14 &   1 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  F &   0 &   0 &   0 &   0 &   0 &  19 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  G &   0 &   0 &   0 &   0 &   0 &   0 &  19 &   0 &   0 &   0 &   0 &   0 \\ 
+  H &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  11 &   4 &   0 &   0 &   0 \\ 
+  I &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  13 &   0 &   0 &   0 \\ 
+  J &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  20 &   0 &   0 \\ 
+  K &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  12 &   0 \\ 
+  L &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  14 \\ 
+   \hline
+\end{tabular}
+	\label{tabla:confusionLDAtest}
+	\caption{Matriz de confusión LDA test}
+\end{table}
+
+
+error de clasificación: 0.03157895
+\restoregeometry 
+
+\subsection{Multinomial}
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrrrrrrr}
+  \hline
+ & A & B & C & D & E & F & G & H & I & J & K & L \\ 
+  \hline
+A &   9 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  B &   0 &  17 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  C &   0 &   0 &  15 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  D &   0 &   0 &   0 &  20 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  E &   0 &   0 &   0 &   0 &  16 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  F &   0 &   0 &   0 &   0 &   0 &  17 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  G &   0 &   0 &   0 &   0 &   0 &   0 &  12 &   0 &   0 &   0 &   0 &   0 \\ 
+  H &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  17 &   0 &   0 &   0 &   0 \\ 
+  I &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  17 &   0 &   0 &   0 \\ 
+  J &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  13 &   0 &   0 \\ 
+  K &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  18 &   0 \\ 
+  L &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  18 \\ 
+   \hline
+\end{tabular}
+	\label{tabla:confusionMLtrain}
+	\caption{Matriz de confusión Multinomial train}
+\end{table}
+
+error de clasificación: 0
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrrrrrrr}
+  \hline
+ & A & B & C & D & E & F & G & H & I & J & K & L \\ 
+  \hline
+A &  21 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  B &   0 &  14 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  C &   0 &   0 &  15 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  D &   0 &   0 &   1 &  12 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  E &   0 &   0 &   0 &   0 &  15 &   0 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  F &   0 &   0 &   0 &   0 &   1 &  18 &   0 &   0 &   0 &   0 &   0 &   0 \\ 
+  G &   0 &   0 &   0 &   0 &   0 &   0 &  19 &   0 &   0 &   0 &   0 &   0 \\ 
+  H &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   9 &   6 &   0 &   0 &   0 \\ 
+  I &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  13 &   0 &   0 &   0 \\ 
+  J &   0 &   4 &   0 &   0 &   0 &   2 &   0 &   0 &   0 &  14 &   0 &   0 \\ 
+  K &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  12 &   0 \\ 
+  L &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &   0 &  14 \\ 
+   \hline
+\end{tabular}
+	\label{tabla:confusionMLtest}
+	\caption{Matriz de confusión Multinomial test}
+\end{table}
+
+error de clasificación: 0.07368421
+
+\pagebreak
+\subsection{Validación cruzada con caret}
+
+Los clasificadores usados para la validación cruzada fueron: redes neuronales, regresión logística, LDA, \textit{Random Forest} y árboles de clasificación.
+La mejor precisión (\textit{Accuracy}) obtenida por cada uno se presenta a continuación.
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrrrrrrrr}
+  \hline
+Clasificador & Accuracy\\ 
+  \hline
+rn &   0.2953684  \\ 
+mr &   0.9626203  \\ 
+lda &   0.9498792 \\ 
+rf &   0.9709806 \\ 
+tree &   0.8468115\\ 
+   \hline
+\end{tabular}
+	\label{tabla:AccuracyCV}
+	\caption{Accuracy usando validación cruzada}
+\end{table}

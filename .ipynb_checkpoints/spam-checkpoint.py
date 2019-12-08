@@ -79,9 +79,6 @@ np.unique(y_test, return_counts = True)
 np.unique(y_train, return_counts = True)
 
 
-#word cloud
-data_fm
-
 #-----------------------------------------------------------------------------#
 ### CLASIFICACION Y EVALUACION DE MODELOS ###
 #-----------------------------------------------------------------------------#
@@ -113,7 +110,6 @@ clf = tree.DecisionTreeClassifier(criterion = "gini",random_state=0,
                                   max_leaf_nodes = 5)
 
 #dt
-clf = tree.DecisionTreeClassifier(criterion = "gini", random_state=0, max_depth = 5)
 clf = tree.DecisionTreeClassifier(criterion = "gini", random_state=0)
 
 #help(tree.DecisionTreeClassifier)
@@ -173,24 +169,9 @@ print(classification_report(y_test, clf_y_predict))
 #tree.plot_tree(clf)
 
 
-#############
-import graphviz 
-import pydotplus
-dot_data = tree.export_graphviz(clf, out_file=None, feature_names=df.columns[:-1],
-                                class_names = ["Ham","Spam"], filled=True, 
-                                rounded=True, special_characters=True) 
-graph = pydotplus.graph_from_dot_data(dot_data)
-graph.write_png(os.getcwd()+"/figuras/arbol.png")
 
-graph = graphviz.Source(dot_data) 
-
-graph
-
-#############
-#from plotlib.pylab import rcParams
+#from matplotlib.pylab import rcParams
 import matplotlib
-%matplotlib inline 
-
 #rcParams['figure.figsize'] = 20,12
 #tree.plot_tree(clf)
 #fig = matplotlib.pyplot.gcf()
@@ -200,11 +181,7 @@ import matplotlib
 #Naive Bayes
 
 #LR
-penalty 
-lr = LogisticRegression(penalty='l1', max_iter=10000, C=1, random_state=42)
-
-lr = LogisticRegression(penalty='none', max_iter=10000, C=1, random_state=42, 
-                        solver = 'newton-cg')
+lr = LogisticRegression(penalty='l2', max_iter=10000, C=1, random_state=42)
 lr.fit(X_train, y_train)
 lr_y_predict = lr.predict(X_test)
 confusion_matrix(y_test,lr_y_predict)
@@ -213,7 +190,6 @@ print('Test Accuracy:', lr_X_test_score)
 index_sort = np.argsort(-np.abs(lr.coef_.reshape(-1)))
 #prueba de hipotesis
 coef = pd.DataFrame({"col": X.columns[index_sort ], "coef":lr.coef_.reshape(-1)[index_sort ] })
-coef 
 #coef 
 print(classification_report(y_test, lr_y_predict ))
 
