@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.9.16)  9 DEC 2019 07:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.9.16)  9 DEC 2019 08:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -927,10 +927,6 @@ Writing index file reporte.idx
 (./reporte.aux
 LaTeX Info: Redefining \. on input line 22.
 LaTeX Info: Redefining \% on input line 22.
-
-
-LaTeX Warning: Label `log6' multiply defined.
-
 )
 \openout1 = `reporte.aux'.
 
@@ -1229,48 +1225,54 @@ Underfull \hbox (badness 10000) in paragraph at lines 371--372
 [10] <images/pca.png, id=203, 668.4975pt x 551.81157pt>
 File: images/pca.png Graphic file (type png)
  <use images/pca.png>
-Package pdftex.def Info: images/pca.png used on input line 422.
+Package pdftex.def Info: images/pca.png used on input line 430.
 (pdftex.def)             Requested size: 334.24792pt x 275.9051pt.
 
 [11 <./images/pca.png (PNG copy)>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 461.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 466.
  [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 461.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 466.
  (./reporte.aux
 LaTeX Info: Redefining \. on input line 22.
 LaTeX Info: Redefining \% on input line 22.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 461.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 461.
-Package rerunfilecheck Info: File `reporte.out' has not changed.
-(rerunfilecheck)             Checksum: 065650A861D9B3B9ABC42065FB879EB8;1511.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 466.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 466.
 
 
-LaTeX Warning: There were multiply-defined labels.
+Package rerunfilecheck Warning: File `reporte.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 461.
+Package rerunfilecheck Info: Checksums for `reporte.out':
+(rerunfilecheck)             Before: 065650A861D9B3B9ABC42065FB879EB8;1511
+(rerunfilecheck)             After:  3B021882DD55A5E8988FEA14ACF3F327;1372.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 466.
  ) 
 Here is how much of TeX's memory you used:
- 13704 strings out of 493013
- 201041 string characters out of 6136993
- 368145 words of memory out of 5000000
- 16915 multiletter control sequences out of 15000+600000
+ 13703 strings out of 493013
+ 201023 string characters out of 6136993
+ 368143 words of memory out of 5000000
+ 16914 multiletter control sequences out of 15000+600000
  20104 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,11n,96p,1996b,482s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texl
-ive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2016/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2016/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2016/texmf-dist/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2016/texmf-dist/fonts/type1/
-public/cm-super/sfbx1200.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-
-super/sfbx1440.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx
-1728.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb><
-c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive
-/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2016/texm
-f-dist/fonts/type1/public/cm-super/sfss1200.pfb><c:/texlive/2016/texmf-dist/fon
-ts/type1/public/cm-super/sfti1200.pfb>
-Output written on reporte.pdf (12 pages, 309829 bytes).
+pdfTeX warning (dest): name{subsubsection.4.7.1} has been referenced but does
+ not exist, replaced by a fixed one
+
+{c:/texlive/2016/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}<c:/texliv
+e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2016/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2016/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2016/texmf-dist/fonts/type
+1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2016/texmf-dist/fonts/type1/pu
+blic/cm-super/sfbx1200.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-su
+per/sfbx1440.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfbx17
+28.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb><c:
+/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2
+016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2016/texmf-
+dist/fonts/type1/public/cm-super/sfss1200.pfb><c:/texlive/2016/texmf-dist/fonts
+/type1/public/cm-super/sfti1200.pfb>
+Output written on reporte.pdf (12 pages, 309738 bytes).
 PDF statistics:
  274 PDF objects out of 1000 (max. 8388607)
  228 compressed objects within 3 object streams

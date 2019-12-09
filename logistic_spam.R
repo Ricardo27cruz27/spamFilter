@@ -169,24 +169,29 @@ columnas0<-apply(spam0,2,checar)
 sort(columnas1)
 sort(columnas0)
 
-which(columnas1==0)
-which(columnas0==0)
+which(abs(columnas1)>.1)
+which((columnas0)>.1)
 
 #LA SEPARACION QUASI PERFECTA SE GENERA POR 
 #which(columnas1==0)
 
 #REALICEMOS UNA REGRESION SIN ESA VARIABLES:
-qua<-unique(c(which(columnas1==0),which(columnas0==0)))
-qua[-19]
+qua<-unique(c(which(abs(columnas1)>1),
+              which((columnas0)>1),58))
+qua
 
 log_sin_quasi<-glm(as.factor(spam)~.,
-               data=datos_train[,-qua[-19]],
+               data=datos_train[,qua],
                family = binomial("logit"),
                maxit = 500)
 
 log_quasi_libre<-densidades(log_sin_quasi,
                             datos_train,
                             0)
+
+
+sort((log_sw$coefficients))
+
 #No se corrige la separación completa
 
 # LOS MODELOS FULL Y STEPWISE TIENEN
@@ -199,7 +204,7 @@ log_quasi_libre<-densidades(log_sin_quasi,
 library(glmnet)
 # Find the best lambda using cross-validation
 cv.lasso <- cv.glmnet(as.matrix(datos_train[,-58]),
-                      as.matrix(datos_train[,58]),
+                      as.matrix(as.factor(datos_train[,58])),
                       alpha = 1, family = "binomial")
 x11();plot(cv.lasso)
 # Fit the final model on the training data
@@ -208,7 +213,7 @@ model <- glmnet(as.matrix(datos_train[,-58]),
                 alpha = 1, family = "binomial",
                 lambda = cv.lasso$lambda.min)
 # Display regression coefficients
-coef(model)
+sum(coef(model)[,1]!=0)
 # Make predictions on the test data
 x.test <- model.matrix(spam~., datos_test)[,-1]
 probabilities <- model %>% predict(newx = x.test)
@@ -217,6 +222,11 @@ predicted.classes <- ifelse(probabilities > 0.5, 1, 0)
 observed.classes <- datos_test[,58]
 mean(predicted.classes == observed.classes)
 
+cm<-table(predicted.classes,observed.classes)
+cm<-confusionMatrix(cm,positive = "1")
+print(cm$overall[1])
+print(cm$byClass[1])
+print(cm$byClass[2])
 
 
 #ridge:
@@ -239,6 +249,11 @@ predicted.classes <- ifelse(probabilities > 0.5, 1, 0)
 # Model accuracy
 observed.classes <- datos_test[,58]
 mean(predicted.classes == observed.classes)
+cm<-table(predicted.classes,observed.classes)
+cm<-confusionMatrix(cm,positive = "1")
+print(cm$overall[1])
+print(cm$byClass[1])
+print(cm$byClass[2])
 
 
 #elastic net:
@@ -276,6 +291,11 @@ svm <- train(
 # Make predictions on the test data
 predicted.classes <- svm %>% predict(datos_test)
 mean(predicted.classes == observed.classes)
+cm<-table(predicted.classes,observed.classes)
+cm<-confusionMatrix(cm,positive = "1")
+print(cm$overall[1])
+print(cm$byClass[1])
+print(cm$byClass[2])
 
 
 svm2 <- train(

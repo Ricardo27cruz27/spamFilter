@@ -15,6 +15,5 @@
 \contentsline {subsection}{\numberline {4.5}Random Forest.}{11}{subsection.4.5}
 \contentsline {subsection}{\numberline {4.6}Modelos con reducci\IeC {\'o}n de dimensi\IeC {\'o}n y selecci\IeC {\'o}n de variables}{11}{subsection.4.6}
 \contentsline {subsection}{\numberline {4.7}Representaci\IeC {\'o}n en componentes principales.}{11}{subsection.4.7}
-\contentsline {subsubsection}{\numberline {4.7.1}Representaci\IeC {\'o}n en componentes principales tras la selecci\IeC {\'o}n de variables.}{11}{subsubsection.4.7.1}
 \contentsline {subsection}{\numberline {4.8}Comparativa con otros modelos}{11}{subsection.4.8}
 \contentsline {section}{\numberline {5}Conclusiones.}{12}{section.5}
