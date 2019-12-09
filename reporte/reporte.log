@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.9.16)  8 DEC 2019 20:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2016.9.16)  8 DEC 2019 20:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -883,7 +883,10 @@ Package: geometry 2010/09/12 v5.6 Page Geometry
 
 
 Writing index file reporte.idx
-(./reporte.aux)
+(./reporte.aux
+LaTeX Info: Redefining \. on input line 22.
+LaTeX Info: Redefining \% on input line 22.
+)
 \openout1 = `reporte.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
@@ -1026,7 +1029,10 @@ Overfull \hbox (37.88673pt too wide) in paragraph at lines 71--72
 [1
 
 {c:/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./cimat.png> <.
-/mty.png>] (./reporte.toc)
+/mty.png>] (./reporte.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write5
 \openout5 = `reporte.toc'.
 
@@ -1057,18 +1063,18 @@ l.219
                                                   \fi \fi 
 l.219 
       ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 237.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 238.
  [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 237.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 238.
  (./reporte.aux
 LaTeX Info: Redefining \. on input line 22.
 LaTeX Info: Redefining \% on input line 22.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 237.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 237.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 238.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 238.
 Package rerunfilecheck Info: File `reporte.out' has not changed.
 (rerunfilecheck)             Checksum: 8F7D36B6481F8B84204A97A65CCC993D;1566.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 237.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 238.
  ) 
 Here is how much of TeX's memory you used:
  12401 strings out of 493013
@@ -1088,7 +1094,7 @@ sfbx1728.pfb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfcc1200.p
 fb><c:/texlive/2016/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/tex
 live/2016/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb><c:/texlive/2016/
 texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on reporte.pdf (5 pages, 167526 bytes).
+Output written on reporte.pdf (5 pages, 166598 bytes).
 PDF statistics:
  190 PDF objects out of 1000 (max. 8388607)
  168 compressed objects within 2 object streams
