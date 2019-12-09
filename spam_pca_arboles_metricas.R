@@ -1,6 +1,7 @@
 library("wordcloud")
 library(dplyr)
 library(ggplot2)
+library(caret)
 
 
 ####################
@@ -45,3 +46,36 @@ length()
 datos.pca <- prcomp(datos[,-ncol(datos)], 
                     center = TRUE, scale = TRUE)
 pcaCharts(datos.pca)
+
+########
+#arboles de decision
+library(rpart)
+library(rpart.plot)
+
+
+datos_train
+datos_train
+
+arbol_fit <- rpart(spam~., data = datos_train, method = 'class')
+
+control <- rpart.control(minsplit = 4,
+                         minbucket = 10,
+                         maxdepth = 4,
+                         cp = 0)
+
+#arbol_fit <- rpart(spam~., data = datos_train, method = 'class', control = control)
+arbol_fit <- rpart(spam~., data = datos_train, method = 'class')
+
+printcp(arbol_fit)
+plotcp(arbol_fit)
+arbol_predict <-predict(arbol_fit, datos_test, type = 'class')
+confusionMatrix(arbol_predict, as.factor(datos_test$spam))
+rpart.plot(arbol_fit, extra = 106)
+
+########
+
+library(tree)
+d_tree = tree(spam~., data = datos_train)
+?tree
+
+names(datos_train) <- make.names(colnames(datos_train))

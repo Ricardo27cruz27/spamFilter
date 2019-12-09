@@ -124,6 +124,7 @@ Spam     & $1813$ & $39.4 \%$ \\ \hline
 Non-Spam & $2788$ & $60.6 \%$ \\ \hline
 \end{tabular}
 \caption{Distribución de clases.}
+\label{t_dist}
 \end{table}
 
 \subsection{Diccionario de datos}
@@ -162,6 +163,7 @@ remove   & addresses & 000      & telnet & pm         & table      \\ \hline
 internet & free      & money    & 857    & direct     & conference \\ \hline
 \end{tabular}
 \caption{Palabras que corresponden a las variables de tipo word\_freq\_WORD.}
+\label{t_words}
 \end{table}
 
 \begin{table}[ht]
@@ -176,6 +178,7 @@ internet & free      & money    & 857    & direct     & conference \\ \hline
 \#  \\ \hline
 \end{tabular}
 \caption{Caracteres que corresponden a las variables de tipo char\_freq\_CHAR.}
+\label{t_chars}
 \end{table}
 
 \subsection{Matriz de correlación.}
@@ -184,15 +187,31 @@ internet & free      & money    & 857    & direct     & conference \\ \hline
 
 A modo de resumen se muestra una representación gráfica de las palabras más frecuentes por cada clase, para obtener la frecuencia de cada palabra, se realizó la suma de cada variable sobre todas las observaciones de cada clase.
 
-\subsection{Representación en componentes principales.}
+\section{Métricas para clasificación binaria.}
 
-\section{Métricas para la clasificación binaria.}
+Las métricas de evaluación permiten medir y resumir la calidad de un modelo entrenado al ser probado con nuevas observaciones. La exactitud ($accuracy$) es una de las métricas más comunes para evaluar la capacidad de generalización de un clasificador, sin embargo no siempre resulta ser la ideal, y esto depende específicamente del problema en cuestión. Entre la distintas métricas que existen para el problema de clasificación binaria, a continuación se mencionan algunas, para finalmente discutir sobre cuál es la ideal para la clasificación de spam, con el fin de tener un criterio de preferencia entre los clasificadores que serán presentados más adelante. \\
 
-\subsection{Accuracy}
+Existen dos tipos de errores al asignar una clase a una observación: el \textit{falso positivo} $fp$ (diagnóstico positivo, condición de interés ausente) y el \textit{falso negativo} $fn$(diagnóstico negativo, condición de interés presente). De forma similar se definen los verdaderos positivos $tp$ y verdaderos negativos $tn$. \\
 
-\subsection{F1-score}
+A partir de lo anterior, se definen las métricas de interés que se muestran en la tabla \ref{t_metricas}.
 
-\subsection{Selección de métricas para el problema del spam}
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Métrica} & \textbf{Fórmula}             & \textbf{Enfoque de la evaluación}                \\ \hline
+Accuracy         & $\dfrac{tp+tn}{tp+fn+fp+tn}$ & Desempeño general                                \\ \hline
+Sensitivity      & $\dfrac{tp}{tp+fn}$          & Efectividad para identificar a la clase positiva \\ \hline
+Specificity      & $\dfrac{tn}{fp+tn}$          & Efectividad para identificar a la clase negativa \\ \hline
+\end{tabular}
+\caption{Métricas para clasificación binaria}
+\label{t_metricas}
+\end{table}
+
+\subsection{Selección de métricas para el problema del spam.}
+
+Para la clasificación de spam, es fundamental que los correos que no son spam, en la medida de lo posible, no sea etiquetados como spam, pues de lo contrario, los usuarios podrían perder información de valor si no revisan periódicamente la bandeja de spam, lo cual sería contraproducente. Dicho en términos de las métricas mencionadas anteriormente, se desea un clasificador con alta especificidad, de modo que la probabilidad de que un correo que no es spam no sea marcado como spam, sea alta. Sin embargo, puede pasar que al aumentar la especificidad, la exactitud y la sensibilidad se vean reducidas, lo que causaría que el clasificador no se capaz de identificar muchos correos que deberían ser marcados como spam, en cuyo caso el usuario los recibiría en su bandeja principal y tendría que marcar manualmente dichos correos como spam. Este último enfoque es preferido, pues se trata de garantizar que los usuarios no pierdan información de valor. Teniendo en cuenta estas consideraciones, se procede a ajustar una serie de clasificadores binarios.
+
 
 \section{Modelos de clasificación.}
 
@@ -201,12 +220,27 @@ A modo de resumen se muestra una representación gráfica de las palabras más f
 \subsection{Máquinas de soporte vectorial.}
 
 \subsection{Árboles de decisión.}
+gini
 
 \subsection{Random Forest.}
 
 \subsection{Modelos con reducción de dimensión y selección de variables}
 
+\subsection{Representación en componentes principales.}
+
+Se calculan las componentes principales y se grafica el screeplot, que muestra el porcentaje de varianza acumulada en función del número de componentes principales. La figura \ref{screeplot} muestra que, por ejemplo para explicar el $80\%$ de varianza, se requieren de al menos $30$ componentes principales, 
+lo que sugiere que los modelos entrenados en dimensión reducida pueden tener un ajuste deficiente.
+
+\begin{figure}[h]
+\centering
+	\includegraphics[scale=.5]{images/pca.png} 
+	\caption{Screeplot}
+		\label{screeplot}
+\end{figure}
+
+
 \subsubsection{Representación en componentes principales tras la selección de variables.}
+
 
 \subsection{Comparativa con otros modelos}
 
@@ -225,13 +259,16 @@ Yo digo que no hay pedo
 \begin{thebibliography}{1}
 
 \bibitem{cr98}
-Lorrie Faith Cranor and Brian A. LaMacchia. 1998. Spam!. Commun. ACM 41, 8 (August 1998), 74-83. DOI: https://doi.org/10.1145/280324.280336
+Lorrie Faith Cranor and Brian A. LaMacchia. 1998. Spam!. Commun. ACM 41, 8 (August 1998), 74-83. 
 
 \bibitem{fe19}
-Emilio Ferrara. 2019. The history of digital spam. Commun. ACM 62, 8 (July 2019), 82-91. DOI: https://doi.org/10.1145/3299768
+Emilio Ferrara. 2019. The history of digital spam. Commun. ACM 62, 8 (July 2019), 82-91. 
 
 \bibitem{ha01}
 Hastie, T., Tibshirani, R.,, Friedman, J. (2001). The Elements of Statistical Learning. New York, NY, USA: Springer New York Inc.. 
+
+\bibitem{so09}
+Marina Sokolova and Guy Lapalme. 2009. A systematic analysis of performance measures for classification tasks. Inf. Process. Manage. 45, 4 (July 2009), 427-437. 
 
 \end{thebibliography}
 
