@@ -13,6 +13,7 @@
 \usepackage{multicol}
 \usepackage{multirow}
 \usepackage{bm}
+\usepackage{subfig}
 \usepackage{bbm}
 \usepackage[left=2.5cm,top=2.5cm,right=2.5cm,bottom=2.5cm]{geometry}
 \parindent=5mm
@@ -215,9 +216,194 @@ Para la clasificación de spam, es fundamental que los correos que no son spam, 
 
 \section{Modelos de clasificación.}
 
-\subsection{Regresión logística.}
+Los modelos a continuación presentados, se implementaron a través del paquete estadístico $R$. Para su análisis se requiere la separación del conjunto original de datos en un conjunto de entrenamiento (aquél con el que se ajustan los modelos) y un conjunto de prueba (conjunto con el que se validan los resultados).\\
 
+En este caso, se optó por un muestreo aleatorio para generar ambas submuestras. El conjunto de entrenamiento consiste de 3680 observaciones (aproximadamente un $80\%$) y el de prueba contiene 921 observaciones.
+
+\subsection{Regresión logística.}
+La regresión logística, es un caso particular de los modelos lineales generalizados. Su característica principal es el tener una variable dependiente dicotómica. Utilizá la función enlace \emph{logit} y gracias a esto se modela:
+
+$$logit(p)=ln(\dfrac{p}{1-p})=\beta x$$
+
+donde $p$ corresponde a la probabilidad asociada a la distribución binomial de la cual se generan los valores de $y$, es decir, $y\thicksim Bin(n,p)$\\
+
+Una vez que se encuentran los parámetros $\beta$, solo es cuestión de evaluar la observación de las variables independientes $x$ y obtener el valor de $p$ aplicando la función inversa de \emph{logit}.\\
+
+El valor estimado de $y$ dependerá de $p$ y un \emph{punto de corte}, que usualmente es el valor $0.5$, ya que si la observación es más grande que el punto de corte quiere decir que $y$ se asemeja más a la distribución de los valores $y=1$ y se asignará como 1. En caso de ser menor al punto de corte se determina que el valor estimado es 0.\\
+
+Se ajustó la regresión considerando las 57 variables, lo cual arrojo las métricas mostradas en la tabla \ref{log1}:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+&Entrenamiento&Prueba\\
+\hline\hline
+Accuracy& $.93$ & $.92 \%$ \\ \hline
+Recall & $.90$ & $.88 \%$ \\ \hline
+Specificity & $.92$ & $.94 \%$ \\ \hline
+\end{tabular}
+\caption{Métricas modelo full.}
+\label{log1}
+\end{table}
+
+Regresando al punto de corte, se esperaría que las distribuciones de los casos verdaderos positivos y verdaderos negativos, tenga un comportamiento similar al de la figura \ref{cutoff}, tratando de minimizar las áreas de falsos positivos y negativos.
+
+\begin{figure}
+\centering
+\includegraphics[scale=.75]{images/punto_de_corte.png} 
+\caption{Distribuciones de TP y FP con relación al punto de corte.}
+\label{cutoff}
+\end{figure}
+
+Se puede cambiar el punto de corte para tratar de minimizar las áreas de errores y por ende mejorar las métricas mencionadas. Cabe resaltar que el punto de corte se determina con el conjunto de entrenamiento.\\
+
+La figura \ref{log2} muestra las distribuciones de verdaderos positivos y negativos para el conjunto de entrenamiento. En las distribuciones de entrenamiento se muestra como se puede desplazar el punto de corte a la izquierda para poder minimizar las áreas de falsos.
+
+\begin{figure}[h]
+ \centering
+  \subfloat[Entrenamiento]{
+    \includegraphics[width=0.5\textwidth]{images/dist1.png}}
+  \subfloat[Prueba]{
+    \includegraphics[width=0.5\textwidth]{images/dist2.png}}
+ \caption{Densidades TP y TN}
+ \label{log2}
+\end{figure}
+
+Por lo anterior, se plantea recorrer el punto de corte, a donde se intersectan las dos distribuciones ($0.4227$). El resultado de esto se muestra en la figura \ref{log4} y la tabla \ref{log3}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+&Entrenamiento&Prueba\\
+\hline\hline
+Accuracy& $.93\%$ & $.91 \%$ \\ \hline
+Recall & $.91\%$ & $.90 \%$ \\ \hline
+Specificity & $.95\%$ & $.93 \%$ \\ \hline
+\end{tabular}
+\caption{Métricas modelo full, punto de corte 0.42}
+\label{log3}
+\end{table}
+
+
+\begin{figure}[h]
+ \centering
+  \subfloat[Entrenamiento]{
+    \includegraphics[width=0.5\textwidth]{images/dist3.png}}
+  \subfloat[Prueba]{
+    \includegraphics[width=0.5\textwidth]{images/dist4.png}}
+ \caption{Densidades TP y TN}
+ \label{log4}
+\end{figure}
+
+Se puede apreciar que las métricas no se modificaron significativamente, por lo que se podría dejar el punto de corte donde inicialmente estaba. Esto depende totalmente de la estrategia que se quiera seguir y se debe estar consciente que las medidas de sensitivity y specificity son complementarias, es decir, existe un \emph{trade-off} entre estas dos medidas al cambiar el punto de corte.\\
+
+Por ejemplo, si la estrategia a seguir fuese no dejar pasar como spam a ningún correo que realmente no sea spam, entonces el punto de corte debe despalzarse hasta la probabilidad máxima observada en los verdaderos negativos durante el entrenamiento. La tabla \ref{log5} muestra los resultados de plantear esta estratégia:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+&Entrenamiento&Prueba\\
+\hline\hline
+Accuracy& $.63\%$ & $.63 \%$ \\ \hline
+Recall & $.08\%$ & $.09 \%$ \\ \hline
+Specificity & $1\%$ & $1 \%$ \\ \hline
+\end{tabular}
+\caption{Métricas modelo full, punto de corte 0.9945}
+\label{log5}
+\end{table}
+
+
+En las densidades mostradas se puede observar que las distribuciones se concentran demasiado en los extremos, es decir, las probabilidades generadas están muy cerca de 0 y 1. De hecho, esto aparece como un \emph{warning} al generar los modelos, en consola se puede leer que se generaron probabilidades 0 ó 1.\\
+
+Este comportamiento se conoce como \emph{separación completa o quasi completa} y se genera cuando para una categoría en particular, se puede observar el valor constante de alguna o algunas variables, lo cual llevaría a que se pueda determinar el valor de la respuesta con solo ver las variables que son constantes, es decir, sería un modelo determinista.\\
+
+Esto puede generar sobreajuste o una mala definición del modelo para observaciones futuras. Sus posibles soluciones son considerar más observaciones en el conjunto original o realizar una selección de variables.\\
+
+Se optará por la segunda alternativa. Al ejecutar un proceso de selección de variables a través de un método stepwise y AIC como criterio del modelo, se obtienen 41 variables.\\
+
+Sin embargo, el desempeño es bastante similar y continua la separación completa. Así que, tal vez, no sea un problema de sobreajuste, sino la naturaleza misma del evento que se estudia. La tabla \ref{log6} contiene las métricas de este nuevo modelo y la figura \ref{log7} las respectivas densidades
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+&Entrenamiento&Prueba\\
+\hline\hline
+Accuracy& $.93\%$ & $.92 \%$ \\ \hline
+Recall & $.91\%$ & $.88 \%$ \\ \hline
+Specificity & $.94\%$ & $.94 \%$ \\ \hline
+\end{tabular}
+\caption{Métricas modelo stepwisw}
+\label{log6}
+\end{table}
+
+
+\begin{figure}[h]
+ \centering
+  \subfloat[Entrenamiento]{
+    \includegraphics[width=0.5\textwidth]{images/dist5.png}}
+  \subfloat[Prueba]{
+    \includegraphics[width=0.5\textwidth]{images/dist6.png}}
+ \caption{Densidades TP y TN}
+ \label{log7}
+\end{figure}
+
+Finalmente, en este método, se consideraron los coeficientes más importantes de acuerdo a la magnitud que poseían:
+
+\begin{itemize}
+\item char$\_$freq$\_\$$: 6.66
+\item cs: -508.4
+\item george: -9.81
+\item conference: -4.52
+\item meeting: -2.69
+\end{itemize} 
+
+\subsection{Lasso y Ridge}
+
+Una de las posibles alternativas son los métodos de regularización, los cuales pueden seleccionar variables y mejorar las estimaciones de los coeficientes haciendolos tender a 0.\\
+
+Para implementar estos dos métodos, primero se realiza validación cruzada, con lo que se determinará el valor de $\lambda$ en cada caso. \\
+
+C-V sugiere utilizar $\lambda=.018$ para ridge y $\lambda=0.00049$ para lasso. Con estos dos valores lasso selecciona 54 variables, mientras que ridge ocupa todas aunque las aproxima a 0.\\
+
+La tabla \ref{lasso} muestra el desempeño de ambos modelos en el conjunto de prueba:
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+&Lasso&Ridge\\
+\hline\hline
+Accuracy& $.90\%$ & $.87 \%$ \\ \hline
+Recall & $.82\%$ & $.73 \%$ \\ \hline
+Specificity & $.96\%$ & $.96 \%$ \\ \hline
+\end{tabular}
+\caption{Métricas modelo lasso y ridge}
+\label{lasso}
+\end{table}
+
+No se mejoró el desempeño de la regresión original, de hecho, la logisitic full, sigue siendo la mejor de los modelos hasta ahora presentados.
 \subsection{Máquinas de soporte vectorial.}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+&SVM&Bayes\\
+\hline\hline
+Accuracy& $.91\%$ & $.91 \%$ \\ \hline
+Recall & $.88\%$ & $.91 \%$ \\ \hline
+Specificity & $.93\%$ & $.92 \%$ \\ \hline
+\end{tabular}
+\caption{Métricas svm y regresion bayesiana}
+\label{svm}
+\end{table}
+
+
 
 \subsection{Árboles de decisión.}
 gini

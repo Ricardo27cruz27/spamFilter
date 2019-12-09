@@ -16,7 +16,7 @@ densidades<-function(modelo,dataset,cutoff){
   den_prob_nsr<-density(prob_nsr,from=0,to=1)
   #Punto de corte
   if(cutoff==0){
-    obs_min<-which.min(abs(den_prob_sr_sw$y-den_prob_nsr_sw$y))
+    obs_min<-which.min(abs(den_prob_sr$y-den_prob_nsr$y))
     cutoff<-den_prob_nsr$x[obs_min]
   }
   #plot
@@ -48,6 +48,7 @@ library(RCurl)
 url<-"https://raw.githubusercontent.com/Ricardo27cruz27/spamFilter/master/datos_spam.csv"
 url_csv<-getURL(url)
 datos<-read.csv(text=url_csv,header = F)
+#Se eliminan los índices de las variables
 datos<-datos[-c(4602,4603),]
 
 #Nombres de las variables:
@@ -69,13 +70,13 @@ names(datos)
 palabras<-datos[,1:54]
 
 #Variable objetivo
-spam<-datos[,"spam"]
+spam<-as.factor(datos[,"spam"])
 
 #Palabras más frecuentes por categoría
 prueba<-cbind(palabras,spam)
-spam1<-sqldf("SELECT * from prueba WHERE spam=1")
+spam1<-sqldf("SELECT * from datos WHERE spam=1")
 dim(spam1)
-spam0<-sqldf("SELECT * from prueba WHERE spam=0")
+spam0<-sqldf("SELECT * from datos WHERE spam=0")
 dim(spam0)
 #palabra más frecuente por categoría
 vec1<-apply(spam1[,1:48], 1, which.max)
@@ -94,10 +95,16 @@ datos_test<- datos[test,]
 x11()
 corrplot(cor(datos), diag = FALSE, order = "FPC",
          tl.pos = "td", tl.cex = 0.5, method = "color", type = "upper")
+x11()
+corrplot(cor(spam1), diag = FALSE, order = "FPC",
+         tl.pos = "td", tl.cex = 0.5, method = "color", type = "upper")
+x11()
+corrplot(cor(spam0), diag = FALSE, order = "FPC",
+         tl.pos = "td", tl.cex = 0.5, method = "color", type = "upper")
 
 
 #Regresion logistica
-logistica<-glm(spam~.,
+logistica<-glm(as.factor(spam)~.,
                data=datos_train,
                family = binomial("logit"),
                maxit = 500)
@@ -106,18 +113,29 @@ logistica
 summary(as.factor(logistica$fitted.values))
 
 #FULL CUTOFF FIJO A .5
-prueba_log<-densidades(logistica,
+log_train_5<-densidades(logistica,
                        datos_train,
                        cutoff = .5)
-prueba_log<-densidades(logistica,
+log_test_5<-densidades(logistica,
                        datos_test,
                        cutoff = .5)
 
+#ZERO FALSE POSITIVES:
+probas<-predict(modelo,dataset,type="response")
+prob_nsr<-probas[which(dataset$spam==0)]
+log_train_max<-densidades(logistica,
+                        datos_train,
+                        cutoff = max(prob_nsr))
+log_test_max<-densidades(logistica,
+                       datos_test,
+                       cutoff = max(prob_nsr))
+
+
 #FULL CUTOFF LIBRE
-prueba_log<-densidades(logistica,
+log_train_libre<-densidades(logistica,
                        datos_train,
                        cutoff = 0)
-prueba_log<-densidades(logistica,
+log_test_libre<-densidades(logistica,
                        datos_test,
                        cutoff = 0)
 
@@ -126,7 +144,7 @@ library(MASS)
 library(tidyverse)
 seleccion<-logistica%>%stepAIC(trace = FALSE,direction = "both")
 #seleccionfwd<-logistica%>%stepAIC(trace = FALSE,direction = "forward")
-
+seleccion$aic
 
 names(seleccion$coefficients)
 aux<-seleccion$formula
@@ -145,6 +163,31 @@ prueba_log_sw<-densidades(log_sw,
                           datos_test,
                           cutoff = 0)
 
+checar<-function(x){return(sum(diff(x)))}
+columnas1<-apply(spam1,2,checar)
+columnas0<-apply(spam0,2,checar)
+sort(columnas1)
+sort(columnas0)
+
+which(columnas1==0)
+which(columnas0==0)
+
+#LA SEPARACION QUASI PERFECTA SE GENERA POR 
+#which(columnas1==0)
+
+#REALICEMOS UNA REGRESION SIN ESA VARIABLES:
+qua<-unique(c(which(columnas1==0),which(columnas0==0)))
+qua[-19]
+
+log_sin_quasi<-glm(as.factor(spam)~.,
+               data=datos_train[,-qua[-19]],
+               family = binomial("logit"),
+               maxit = 500)
+
+log_quasi_libre<-densidades(log_sin_quasi,
+                            datos_train,
+                            0)
+#No se corrige la separación completa
 
 # LOS MODELOS FULL Y STEPWISE TIENEN
 # SEPARACION COMPLETA. SE INTENTARA
