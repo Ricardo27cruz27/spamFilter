@@ -2,8 +2,11 @@ library("wordcloud")
 library(dplyr)
 library(ggplot2)
 library(caret)
+library(Metrics)
 
 
+
+sumrows(palabras)
 ####################
 #funcion para graficas sobre pca
 pcaCharts <- function(x) {
@@ -41,7 +44,6 @@ wordcloud(words = vars_freq, freq = as.data.frame(resumen_freq_1), random.order=
 
 ###### 
 #pca
-length()
 
 datos.pca <- prcomp(datos[,-ncol(datos)], 
                     center = TRUE, scale = TRUE)
@@ -53,29 +55,19 @@ library(rpart)
 library(rpart.plot)
 
 
-datos_train
-datos_train
+control <- rpart.control(maxdepth = 5, cp = .005)
+#entre 0 y 1
+#clasificar 0 como 1
+L <- matrix(c(0,2,1,0), byrow=TRUE, nrow=2)
 
-arbol_fit <- rpart(spam~., data = datos_train, method = 'class')
+arbol_fit <- rpart(spam~., data = datos_train, method = 'class', 
+                   parms = list(loss= L), control = control)
 
-control <- rpart.control(minsplit = 4,
-                         minbucket = 10,
-                         maxdepth = 4,
-                         cp = 0)
-
-#arbol_fit <- rpart(spam~., data = datos_train, method = 'class', control = control)
-arbol_fit <- rpart(spam~., data = datos_train, method = 'class')
-
+#cp es lo que cuesta agregar una nueva variable
 printcp(arbol_fit)
 plotcp(arbol_fit)
+
 arbol_predict <-predict(arbol_fit, datos_test, type = 'class')
-confusionMatrix(arbol_predict, as.factor(datos_test$spam))
+confusionMatrix(arbol_predict, as.factor(datos_test$spam), positive='1')
 rpart.plot(arbol_fit, extra = 106)
-
-########
-
-library(tree)
-d_tree = tree(spam~., data = datos_train)
-?tree
-
-names(datos_train) <- make.names(colnames(datos_train))
+#RF

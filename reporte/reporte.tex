@@ -211,7 +211,7 @@ Specificity      & $\dfrac{tn}{fp+tn}$          & Efectividad para identificar a
 
 \subsection{Selección de métricas para el problema del spam.}
 
-Para la clasificación de spam, es fundamental que los correos que no son spam, en la medida de lo posible, no sea etiquetados como spam, pues de lo contrario, los usuarios podrían perder información de valor si no revisan periódicamente la bandeja de spam, lo cual sería contraproducente. Dicho en términos de las métricas mencionadas anteriormente, se desea un clasificador con alta especificidad, de modo que la probabilidad de que un correo que no es spam no sea marcado como spam, sea alta. Sin embargo, puede pasar que al aumentar la especificidad, la exactitud y la sensibilidad se vean reducidas, lo que causaría que el clasificador no se capaz de identificar muchos correos que deberían ser marcados como spam, en cuyo caso el usuario los recibiría en su bandeja principal y tendría que marcar manualmente dichos correos como spam. Este último enfoque es preferido, pues se trata de garantizar que los usuarios no pierdan información de valor. Teniendo en cuenta estas consideraciones, se procede a ajustar una serie de clasificadores binarios.
+Para la clasificación de spam, es fundamental que los correos que no son spam, en la medida de lo posible, no sea etiquetados como spam, pues de lo contrario, los usuarios podrían perder información de valor si no revisan periódicamente la bandeja de spam, lo cual sería contraproducente. Dicho en términos de las métricas mencionadas anteriormente, se desea un clasificador con alta especificidad (specificity), de modo que la probabilidad de que un correo que no es spam no sea marcado como spam, sea alta. Sin embargo, puede pasar que al aumentar la especificidad, la exactitud y la sensibilidad (sensitivity) se vean reducidas, lo que causaría que el clasificador no se capaz de identificar muchos correos que deberían ser marcados como spam, en cuyo caso el usuario los recibiría en su bandeja principal y tendría que marcar manualmente dichos correos como spam. Este último enfoque es preferido, pues se trata de garantizar que los usuarios no pierdan información de valor. Teniendo en cuenta estas consideraciones, se procede a ajustar una serie de clasificadores binarios.
 
 
 \section{Modelos de clasificación.}
@@ -406,8 +406,16 @@ Specificity & $.93\%$ & $.92 \%$ \\ \hline
 
 
 \subsection{Árboles de decisión.}
-gini
 
+El índice de Gini se define como 
+
+$$ G $$ 
+
+gini
+podado
+matriz de costo
+
+%o bagging
 \subsection{Random Forest.}
 
 \subsection{Modelos con reducción de dimensión y selección de variables}
@@ -423,9 +431,6 @@ lo que sugiere que los modelos entrenados en dimensión reducida pueden tener un
 	\caption{Screeplot}
 		\label{screeplot}
 \end{figure}
-
-
-\subsubsection{Representación en componentes principales tras la selección de variables.}
 
 
 \subsection{Comparativa con otros modelos}
