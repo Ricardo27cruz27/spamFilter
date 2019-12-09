@@ -114,7 +114,7 @@ Aplicación de modelos de clasificación para obtener un filtro (personalizado) 
 
 El conjunto de datos proviene de una serie de correos electrónicos del personal de la empresa HP. Los correos etiquetados como spam fueron proporcionados por el administrador del servidor de correo de la empresa, mientras que los correos que no están etiquetados como spam corresponden a correos personales y de trabajo de George Forman, es por ello que palabras como \textit{george} o código de área $650$ son indicadores de no spam. La base de datos fue creada por Mark Hopkins, Erik Reeber, George Forman y Jaap Suermondt de Hewlett-Packard Labs.
 
-En total se cuentan 4601 observaciones, de las cuales 1813 fueron etiquetadas como spam, que corresponde al $39.4\%$ del total. Las observaciones están representadas a través de un conjunto de 58 atributos: $57$ variables continuas y una variable nominal de clase. Ninguno de los atributos presenta datos faltantes.
+En total se cuentan 4601 observaciones, de las cuales 1813 fueron etiquetadas como spam, que corresponde al $39.4\%$ del total. Las observaciones están representadas a través de un conjunto de 58 atributos: $57$ variables cuantitativas y una variable cualitativa nominal de clase. Ninguno de los atributos presenta datos faltantes. 
 
 \begin{table}[ht]
 \centering
@@ -131,11 +131,60 @@ Non-Spam & $2788$ & $60.6 \%$ \\ \hline
 Los 58 atributos se pueden agrupar en:
 
 \begin{itemize}
-	\item 48 variables continuas con rango $[0,100]$, de la forma word\_freq\_WORD, que indica el porcentaje de palabras en el correo electrónico que coinciden con WORD, es decir:
-	$$word\_freq\_WORD = 100 \times \dfrac{\#\text{apariones de WORD en el correo}}{\#\text{total de palabras en el correo}}$$
-	\item 6 variables continuas
+	\item 48 variables cuantitativas continuas con rango $[0,100]$, de la forma word\_freq\_WORD, que indica el porcentaje de palabras en el correo que coinciden con WORD, es decir:
+	$$word\_freq\_WORD = 100 \times \dfrac{\#\text{apariciones de WORD en el correo}}{\#\text{total de palabras en el correo}}$$
+	
+	\item 6 variables cuantitativas continuas con rango $[0,100]$, de la forma char\_freq\_CHAR, que indica el porcentaje de caracteres en el correo que coinciden con CHAR, es decir:	
+		$$char\_freq\_CHAR = 100 \times \dfrac{\#\text{apariciones de CHAR en el correo}}{\#\text{total de caracteres en el correo}}$$
+		
+	\item 1 variable cuantitativa continua \textsf{capital\_run\_length\_average} con rango $[0,\infty)$, que es igual a longitud media de las secuencias contiguas de letras mayúsculas que aparecen en el correo.
+	
+	\item 1 variable cuantitativa discreta \textsf{capital\_run\_length\_longest} con rango $[0,\infty)$, que es igual a la longitud de la secuencia contigua de letras mayúsculas más larga que aparece en el correo.
+	
+	\item 1 variable cuantitativa discreta \textsf{capital\_run\_length\_total} con rango $[0,\infty)$, que es igual a la suma de las longitudes de las secuencias contiguas de letras mayúsculas que aparecen en el correo.
+	
+	\item 1 variable nominal de clase con valores en $\{0, 1\}$, que indica si el correo se considera spam (1) o no (0).
 \end{itemize}
 
+La documentación del conjunto de datos no indica los criterios para la selección de las 48 palabras y 6 caracteres usados para la definición de sus correspondientes variables.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+make     & order     & business & hp     & data       & cs         \\ \hline
+address  & mail      & email    & hpl    & 415        & meeting    \\ \hline
+all      & receive   & you      & george & 85         & original   \\ \hline
+3d       & will      & credit   & 650    & technology & project    \\ \hline
+our      & people    & your     & lab    & 1999       & re         \\ \hline
+over     & report    & font     & labs   & parts      & edu        \\ \hline
+remove   & addresses & 000      & telnet & pm         & table      \\ \hline
+internet & free      & money    & 857    & direct     & conference \\ \hline
+\end{tabular}
+\caption{Palabras que corresponden a las variables de tipo word\_freq\_WORD.}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|}
+\hline
+;   \\ \hline
+(   \\ \hline
+{[} \\ \hline
+!   \\ \hline
+\$  \\ \hline
+\#  \\ \hline
+\end{tabular}
+\caption{Caracteres que corresponden a las variables de tipo char\_freq\_CHAR.}
+\end{table}
+
+\subsection{Matriz de correlación.}
+
+\subsection{Palabras más frecuentes por clase.}
+
+A modo de resumen se muestra una representación gráfica de las palabras más frecuentes por cada clase, para obtener la frecuencia de cada palabra, se realizó la suma de cada variable sobre todas las observaciones de cada clase.
+
+\subsection{Representación en componentes principales.}
 
 \section{Métricas para la clasificación binaria.}
 
@@ -157,10 +206,18 @@ Los 58 atributos se pueden agrupar en:
 
 \subsection{Modelos con reducción de dimensión y selección de variables}
 
-\subsection{Comparativa con otros modelos}
-%provenientes de articulos
+\subsubsection{Representación en componentes principales tras la selección de variables.}
 
-\section{Análisis del dataset elron.}
+\subsection{Comparativa con otros modelos}
+
+%provenientes de articulos
+de spambase.DOCUMENTATION
+$~7\%$ misclassification error.
+False positives (marking good mail as spam) are very undesirable.
+If we insist on zero false positives in the training/testing set,
+$20-25\%$ of the spam passed through the filter.
+
+revisar papers donde trabajan con el ejemplo
 
 \section{Conclusiones.}
 
